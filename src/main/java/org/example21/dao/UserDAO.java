@@ -43,7 +43,7 @@ public class UserDAO {
             while (resultSet.next()) {
                 User user = new User();
 
-                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getInt("table_id"));
                 user.setName(resultSet.getString("name"));
                 user.setTelegram(resultSet.getString("telegram"));
                 user.setEmail(resultSet.getString("email"));
@@ -64,7 +64,7 @@ public class UserDAO {
 
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("SELECT * FROM Person WHERE id=?");
+                    connection.prepareStatement("SELECT * FROM Person WHERE table_id=?");
 
             preparedStatement.setInt(1, id);
 
@@ -104,7 +104,7 @@ public class UserDAO {
     public void update(int id, User updatedUser) {
         try {
             PreparedStatement preparedStatement =
-                    connection.prepareStatement("UPDATE users SET name=?, age=?, email=? WHERE id=?");
+                    connection.prepareStatement("UPDATE users SET name=?, telegram_id=?, email=? WHERE table_id=?");
 
             preparedStatement.setString(1, updatedUser.getName());
             preparedStatement.setString(2, updatedUser.getTelegram());
@@ -121,7 +121,7 @@ public class UserDAO {
         PreparedStatement preparedStatement =
                 null;
         try {
-            preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id=?");
+            preparedStatement = connection.prepareStatement("DELETE FROM users WHERE table_id=?");
 
             preparedStatement.setInt(1, id);
 

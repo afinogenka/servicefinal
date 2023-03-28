@@ -23,23 +23,23 @@ public class UsersController {
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", userDAO.index());
-        return "people/index";
+        model.addAttribute("user", userDAO.index());
+        return "user/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", userDAO.show(id));
+        model.addAttribute("user", userDAO.show(id));
         return "users/show";
     }
 
     @GetMapping("/new")
-    public String newPerson(@ModelAttribute("person") User user) {
+    public String newUser(@ModelAttribute("user") User user) {
         return "users/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") @Valid User user,
+    public String create(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "users/new";
@@ -50,23 +50,23 @@ public class UsersController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", userDAO.show(id));
+        model.addAttribute("user", userDAO.show(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid User user, BindingResult bindingResult,
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
-            return "people/edit";
+            return "users/edit";
 
         userDAO.update(id, user);
-        return "redirect:/people";
+        return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         userDAO.delete(id);
-        return "redirect:/people";
+        return "redirect:/users";
     }
 }
